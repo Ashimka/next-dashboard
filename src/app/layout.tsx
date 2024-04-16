@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
+import Navbar from "@/components/Navbar/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "ADMIN ПАНЕЛЬ",
@@ -17,9 +22,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${inter.className} flex items-start justify-between`}>
-        <Sidebar />
-        <main className="w-full h-full">{children}</main>
+      <body className={roboto.className}>
+        <div className="root">
+          <header>
+            <Navbar />
+          </header>
+          <main className="main">
+            <div className="container">{children}</div>
+          </main>
+        </div>
       </body>
     </html>
   );
