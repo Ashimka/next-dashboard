@@ -16,11 +16,13 @@ const Navbar = () => {
 
   return (
     <div className={styles.navbar}>
-      <div className={styles.navbar__title}>{pathname.split("/").pop()}</div>
+      <div className={styles.navbar__title}>
+        {pathname.split("/").pop() || "Dashboard"}
+      </div>
       <div className={styles.navbar__menu}>
         <div className={styles.navbar__search}>
           <MdSearch />
-          <input type="text" placeholder="Search..." className={styles.input} />
+          <input type="text" placeholder="Поиск..." className={styles.input} />
         </div>
         <div className={styles.navbar__icons}>
           <MdOutlineChat size={20} />

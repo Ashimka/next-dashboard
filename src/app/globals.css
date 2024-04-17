@@ -36,8 +36,16 @@ h3 {
 }
 .root {
   display: flex;
-  flex-direction: column;
-  height: 100vh;
+}
+.menu {
+  flex: 1;
+  background-color: var(--bgSoft);
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 4;
 }
 .main {
   flex: 1 1 auto;
@@ -46,4 +54,8 @@ h3 {
   max-width: 1024px;
   margin: 0 auto;
   padding: 0 10px;
+}
+.active {
+  background-color: #2e374a;
+  color: var(--text);
 }
