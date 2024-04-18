@@ -1,6 +1,6 @@
 :root {
-  --bg: #151c2c;
-  --bgSoft: #182237;
+  --bg: hsl(222, 79%, 19%);
+  --bgSoft: hsl(219, 50%, 18%);
   --text: white;
   --textSoft: #b7bac1;
 }
@@ -45,6 +45,8 @@ h3 {
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
   flex: 4;
 }
 .main {
@@ -56,6 +58,6 @@ h3 {
   padding: 0 10px;
 }
 .active {
-  background-color: #2e374a;
+  background-color: hsl(221, 23%, 40%);
   color: var(--text);
 }

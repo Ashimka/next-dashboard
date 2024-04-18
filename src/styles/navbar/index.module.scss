@@ -21,7 +21,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: #2e374a;
+    background-color: hsl(221, 23%, 40%);
     padding: 10px;
     border-radius: 10px;
 
@@ -31,6 +31,10 @@
       color: var(--text);
       padding: 5px;
       letter-spacing: 2px;
+
+      &::placeholder {
+        color: var(--textSoft);
+      }
     }
   }
 

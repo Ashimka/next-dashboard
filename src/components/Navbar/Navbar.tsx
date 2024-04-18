@@ -15,7 +15,7 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className={styles.navbar}>
+    <header className={styles.navbar}>
       <div className={styles.navbar__title}>
         {pathname.split("/").pop() || "Dashboard"}
       </div>
@@ -30,7 +30,7 @@ const Navbar = () => {
           <MdPublic size={20} />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
