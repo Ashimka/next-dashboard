@@ -40,6 +40,7 @@ const LoginForm = () => {
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <h2>ВХОД</h2>
         <PhoneInput register={register} errors={errors} />
         <PasswordInput register={register} errors={errors} />
         <button className={styles.button}>

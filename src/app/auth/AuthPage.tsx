@@ -4,14 +4,16 @@ import React from "react";
 
 import styles from "@/styles/auth/index.module.scss";
 
-const page = () => {
+const AuthPage = () => {
   return (
     <>
       <div className={styles.form_login}>
-        <LoginForm />
+        <div className="form_container">
+          <LoginForm />
+        </div>
       </div>
     </>
   );
 };
 
-export default page;
+export default AuthPage;

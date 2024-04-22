@@ -62,3 +62,7 @@ h3 {
   background-color: hsl(221, 23%, 40%);
   color: var(--text);
 }
+.form_container {
+  min-width: 310px;
+  max-height: 400px;
+}
