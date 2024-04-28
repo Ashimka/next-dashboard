@@ -6,11 +6,16 @@ import PasswordInput from "./PasswordInput";
 
 import styles from "@/styles/auth/index.module.scss";
 import spinnerStyles from "@/styles/spinner/index.module.scss";
-import { signInFn } from "@/api/auth";
 import { showAuthError } from "@/utils/errors";
+import { useLoginUserMutation } from "@/store/slice/auth/authApiSlice";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "@/hooks";
+import { setUser } from "@/store/slice/apiSlice";
 
 const LoginForm = () => {
-  const [spinner, setSpinner] = React.useState(false);
+  const [authUser, { data: loginData, isLoading, isError, isSuccess, error }] =
+    useLoginUserMutation();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -19,24 +24,35 @@ const LoginForm = () => {
     resetField,
   } = useForm<IInputs>();
 
+  const [login, setLogin] = React.useState("");
+
   const onSubmit = async (data: IInputs) => {
-    try {
-      setSpinner(true);
+    await authUser({
+      phone: data.phone,
+      password: data.password,
+    }).unwrap();
 
-      await signInFn({
-        url: "/auth/login",
-        phone: data.phone,
-        password: data.password,
-      });
+    setLogin(data.phone);
 
-      resetField("phone");
-      resetField("password");
-    } catch (error) {
-      showAuthError(error);
-    } finally {
-      setSpinner(false);
-    }
+    resetField("phone");
+    resetField("password");
   };
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      dispatch(setUser({ login, token: loginData.accessToken }));
+      toast.success("Success login!");
+    }
+  }, [isSuccess, dispatch, login, loginData]);
+
+  React.useEffect(() => {
+    if (isError) {
+      if (error !== undefined && "status" in error) {
+        showAuthError(error);
+      }
+    }
+  }, [isError, error]);
+
   return (
     <>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +60,7 @@ const LoginForm = () => {
         <PhoneInput register={register} errors={errors} />
         <PasswordInput register={register} errors={errors} />
         <button className={styles.button}>
-          {spinner ? <div className={spinnerStyles.spinner} /> : "Войти"}
+          {isLoading ? <div className={spinnerStyles.spinner} /> : "Войти"}
         </button>
       </form>
     </>
