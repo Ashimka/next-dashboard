@@ -7,10 +7,12 @@ import Footer from "@/components/Footer/Footer";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { selectAuth, setUser } from "@/store/slice/apiSlice";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { token } = useAppSelector(selectAuth);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { token } = useAppSelector(selectAuth);
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -18,9 +20,13 @@ export default function Home() {
 
       if (user) {
         dispatch(setUser(JSON.parse(user)));
+      } else {
+        if (!token) {
+          router.push("/auth/login");
+        }
       }
     }
-  }, [dispatch]);
+  }, [dispatch, token, router]);
 
   return (
     <>
