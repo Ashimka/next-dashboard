@@ -1,20 +1,31 @@
 "use client";
 import React from "react";
 
-import AuthPage from "./auth/AuthPage";
 import Navbar from "@/components/Navbar/Navbar";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Footer from "@/components/Footer/Footer";
 
-import { useAppSelector } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { selectAuth, setUser } from "@/store/slice/apiSlice";
 
 export default function Home() {
-  const user = useAppSelector((state) => state.auth);
+  const { token } = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem("user");
+
+      if (user) {
+        dispatch(setUser(JSON.parse(user)));
+      }
+    }
+  }, [dispatch]);
 
   return (
     <>
       <div className="root">
-        {user.login ? (
+        {token && (
           <>
             <div className="menu">
               <Sidebar />
@@ -27,8 +38,6 @@ export default function Home() {
               <Footer />
             </div>
           </>
-        ) : (
-          <AuthPage />
         )}
       </div>
     </>

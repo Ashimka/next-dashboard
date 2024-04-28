@@ -1,6 +1,7 @@
 "use client";
-import LoginForm from "@/components/Auth/LoginForm";
 import React from "react";
+
+import LoginForm from "@/components/Auth/LoginForm";
 
 import styles from "@/styles/auth/index.module.scss";
 

@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
 import MenuLink from "@/components/MenuLink/MenuLink";
-import styles from "@/styles/sidebar/index.module.scss";
 import {
   MdDashboard,
   MdSupervisedUserCircle,
@@ -13,6 +14,11 @@ import {
   MdHelpCenter,
   MdLogout,
 } from "react-icons/md";
+import { useAppDispatch } from "@/hooks";
+import { logout } from "@/store/slice/apiSlice";
+import { useLogoutUserMutation } from "@/store/slice/auth/authApiSlice";
+
+import styles from "@/styles/sidebar/index.module.scss";
 
 const menuItems = [
   {
@@ -82,6 +88,15 @@ const Sidebar = () => {
     img: "",
     name: "Ashimka",
   };
+  const [logoutUser] = useLogoutUserMutation();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logoutUser(logout);
+    dispatch(logout());
+    router.push("/auth/login");
+  };
   return (
     <div className={styles.sidebar}>
       <div className={`${styles.sidebar__user} ${styles.user}`}>
@@ -108,7 +123,7 @@ const Sidebar = () => {
         ))}
       </ul>
 
-      <button className={styles.sidebar__logout}>
+      <button onClick={() => handleLogout()} className={styles.sidebar__logout}>
         <MdLogout />
         Logout
       </button>

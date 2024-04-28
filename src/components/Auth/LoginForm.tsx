@@ -1,5 +1,6 @@
-import { IInputs } from "@/types/auth";
 import React from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import PhoneInput from "./PhoneInput";
 import PasswordInput from "./PasswordInput";
@@ -8,14 +9,15 @@ import styles from "@/styles/auth/index.module.scss";
 import spinnerStyles from "@/styles/spinner/index.module.scss";
 import { showAuthError } from "@/utils/errors";
 import { useLoginUserMutation } from "@/store/slice/auth/authApiSlice";
-import { toast } from "react-toastify";
-import { useAppDispatch } from "@/hooks";
 import { setUser } from "@/store/slice/apiSlice";
+import { useAppDispatch } from "@/hooks";
+import { IInputs } from "@/types/auth";
 
 const LoginForm = () => {
   const [authUser, { data: loginData, isLoading, isError, isSuccess, error }] =
     useLoginUserMutation();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const {
     register,
@@ -40,10 +42,11 @@ const LoginForm = () => {
 
   React.useEffect(() => {
     if (isSuccess) {
+      router.push("/");
       dispatch(setUser({ login, token: loginData.accessToken }));
       toast.success("Success login!");
     }
-  }, [isSuccess, dispatch, login, loginData]);
+  }, [isSuccess, dispatch, login, loginData, router]);
 
   React.useEffect(() => {
     if (isError) {
