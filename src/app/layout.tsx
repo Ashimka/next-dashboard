@@ -26,18 +26,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
-      <body className={roboto.className}>
-        <ReduxProvider>{children}</ReduxProvider>
-        <ToastContainer
-          position="top-left"
-          hideProgressBar={false}
-          closeOnClick
-          rtl={false}
-          limit={1}
-          theme="colored"
-        />
-      </body>
-    </html>
+    <ReduxProvider>
+      <html lang="ru">
+        <body className={roboto.className}>
+          {children}
+          <ToastContainer
+            position="top-left"
+            hideProgressBar={false}
+            closeOnClick
+            rtl={false}
+            limit={1}
+            theme="colored"
+          />
+        </body>
+      </html>
+    </ReduxProvider>
   );
 }
