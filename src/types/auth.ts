@@ -8,3 +8,6 @@ export interface IAuthPageInput {
   register: UseFormRegister<IInputs>;
   errors: FieldErrors<IInputs>;
 }
+export interface IAccessToken {
+  accessToken: string;
+}

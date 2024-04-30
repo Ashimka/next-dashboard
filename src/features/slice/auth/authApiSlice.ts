@@ -1,11 +1,7 @@
+import { apiApp } from "@/store/apiApp";
 import { IInputs } from "@/types/auth";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const authApi = createApi({
-  reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_SERVER_URL,
-  }),
+export const authApi = apiApp.injectEndpoints({
   endpoints: (builder) => ({
     loginUser: builder.mutation({
       query: (body: IInputs) => ({

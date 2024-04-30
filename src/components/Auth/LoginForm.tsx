@@ -8,8 +8,8 @@ import PasswordInput from "./PasswordInput";
 import styles from "@/styles/auth/index.module.scss";
 import spinnerStyles from "@/styles/spinner/index.module.scss";
 import { showAuthError } from "@/utils/errors";
-import { useLoginUserMutation } from "@/store/slice/auth/authApiSlice";
-import { setUser } from "@/store/slice/apiSlice";
+import { useLoginUserMutation } from "@/features/slice/auth/authApiSlice";
+import { setUser } from "@/features/slice/apiSlice";
 import { useAppDispatch } from "@/hooks";
 import { IInputs } from "@/types/auth";
 
@@ -43,7 +43,9 @@ const LoginForm = () => {
   React.useEffect(() => {
     if (isSuccess) {
       router.push("/");
-      dispatch(setUser({ login, token: loginData.accessToken }));
+      dispatch(
+        setUser({ userLogin: login, accessToken: loginData.accessToken })
+      );
       toast.success("Success login!");
     }
   }, [isSuccess, dispatch, login, loginData, router]);

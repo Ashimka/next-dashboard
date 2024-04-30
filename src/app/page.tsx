@@ -8,6 +8,7 @@ export default function Home() {
       Home page
       <Link href={"/auth/login"}> Login</Link>
       <Link href={"/admins"}> Admin</Link>
+      <Link href={"/admins/users"}> Users</Link>
     </>
   );
 }

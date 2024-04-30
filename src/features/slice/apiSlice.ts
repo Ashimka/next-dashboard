@@ -2,13 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "@/store/store";
 
 export interface IAuthState {
-  login: string | null;
-  token: string | null;
+  userLogin: string | null;
+  accessToken: string | null;
 }
 
 const initialState: IAuthState = {
-  login: null,
-  token: null,
+  userLogin: null,
+  accessToken: null,
 };
 
 export const authSlice = createSlice({
@@ -17,21 +17,22 @@ export const authSlice = createSlice({
   reducers: {
     setUser: (
       state,
-      action: PayloadAction<{ login: string; token: string }>
+      action: PayloadAction<{ userLogin: string; accessToken: string }>
     ) => {
       localStorage.setItem(
         "user",
         JSON.stringify({
-          login: action.payload?.login,
-          token: action.payload?.token,
+          userLogin: action.payload?.userLogin,
+          accessToken: action.payload?.accessToken,
         })
       );
-      state.login = action.payload?.login;
-      state.token = action.payload?.token;
+      state.userLogin = action.payload?.userLogin;
+      state.accessToken = action.payload?.accessToken;
     },
     logout: (state) => {
-      localStorage.removeItem("user"), (state.login = null);
-      state.token = null;
+      localStorage.removeItem("user");
+      state.userLogin = null;
+      state.accessToken = null;
     },
   },
 });

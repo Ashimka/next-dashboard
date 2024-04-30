@@ -15,8 +15,8 @@ import {
   MdLogout,
 } from "react-icons/md";
 import { useAppDispatch } from "@/hooks";
-import { logout } from "@/store/slice/apiSlice";
-import { useLogoutUserMutation } from "@/store/slice/auth/authApiSlice";
+import { useLogoutUserMutation } from "@/features/slice/auth/authApiSlice";
+import { logout } from "@/features/slice/apiSlice";
 
 import styles from "@/styles/sidebar/index.module.scss";
 
@@ -26,12 +26,12 @@ const menuItems = [
     list: [
       {
         title: "Dashboard",
-        path: "/",
+        path: "/admins",
         icon: <MdDashboard />,
       },
       {
         title: "Users",
-        path: "/dashboard/users",
+        path: "/admins/users",
         icon: <MdSupervisedUserCircle />,
       },
       {

@@ -2,19 +2,19 @@
 import React from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { selectAuth, setUser } from "@/store/slice/apiSlice";
 import { useRouter } from "next/navigation";
 
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { adminRolle } from "@/hooks/useCheckAdminRole";
+import { selectAuth, setUser } from "@/features/slice/apiSlice";
 
 const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { token } = useAppSelector(selectAuth);
-  const isAdmin = adminRolle(token);
+  const { accessToken } = useAppSelector(selectAuth);
+  const isAdmin = adminRolle(accessToken);
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -23,18 +23,18 @@ const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       if (user) {
         dispatch(setUser(JSON.parse(user)));
       } else {
-        if (!token) {
+        if (!accessToken) {
           router.push("/auth/login");
         }
       }
     }
-  }, [dispatch, token, router]);
+  }, [dispatch, accessToken, router]);
 
   React.useEffect(() => {
-    if (token && !isAdmin) {
+    if (accessToken && !isAdmin) {
       router.push("/");
     }
-  }, [token, isAdmin, router]);
+  }, [accessToken, isAdmin, router]);
 
   return (
     <>
