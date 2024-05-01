@@ -1,29 +1,35 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
 import styles from "@/styles/category/index.module.scss";
 import Modal from "@/components/Modal/Modal";
 import { useRouter } from "next/navigation";
-import { useClickOutside } from "@/hooks/useClickOutside";
 
 const CategoryPage = () => {
-  const [open, setOpen] = React.useState(false);
-  const modalRef = useClickOutside(() => setOpen(false));
   const router = useRouter();
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     router.push("/admins/categories");
-    setOpen(!open);
-    document.querySelector("body")?.classList.toggle("hidden");
-  };
+    document.querySelector("body")?.classList.remove("hidden");
+  }, [router]);
 
   const onModalOpen = () => {
     router.push("/admins/categories?modal=true");
-    setOpen(!open);
-    document.querySelector("body")?.classList.toggle("hidden");
+    document.querySelector("body")?.classList.add("hidden");
   };
+
+  React.useEffect(() => {
+    document.addEventListener(
+      "keydown",
+      (event: KeyboardEvent | React.KeyboardEvent) => {
+        if (event.key === "Escape") {
+          onClose();
+        }
+      }
+    );
+  }, [onClose]);
 
   return (
     <>
@@ -90,16 +96,15 @@ const CategoryPage = () => {
           </table>
         </div>
       </div>
-      <div ref={modalRef}>
-        <Modal title="Cat" onClose={onClose}>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet
-            facilis eos voluptates veritatis harum. A quidem mollitia,
-            voluptatem expedita maxime sunt culpa officia et quaerat quod
-            laboriosam pariatur odio iste!
-          </p>
-        </Modal>
-      </div>
+
+      <Modal title="Cat" onClose={onClose}>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet
+          facilis eos voluptates veritatis harum. A quidem mollitia, voluptatem
+          expedita maxime sunt culpa officia et quaerat quod laboriosam pariatur
+          odio iste!
+        </p>
+      </Modal>
     </>
   );
 };
