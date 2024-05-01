@@ -16,8 +16,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "ADMIN ПАНЕЛЬ",
-  description: "Панель администратора",
+  title: "SUSHI SHOP",
+  description: "Суши & роллы | Суши бар",
 };
 
 export default function RootLayout({
