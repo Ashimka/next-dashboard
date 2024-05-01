@@ -6,6 +6,10 @@
   --btn: hsl(222, 89%, 29%);
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 *,
 *::before,
 *::after {
@@ -34,6 +38,7 @@ h3 {
 }
 .hidden {
   overflow: hidden;
+  filter: blur(3px);
 }
 .root {
   display: flex;

@@ -81,6 +81,8 @@
           justify-content: space-around;
 
           &__edit {
+            width: 20px;
+            height: 20px;
             background: inherit;
             color: hsl(120, 95%, 41%);
 
@@ -88,13 +90,26 @@
               cursor: pointer;
               color: hsl(120, 95%, 47%);
             }
+
+            & > svg {
+              width: 20px;
+              height: 20px;
+            }
           }
           &__delete {
+            width: 20px;
+            height: 20px;
             background: inherit;
             color: hsl(9, 100%, 64%);
+
             &:hover {
               cursor: pointer;
               color: hsl(9, 100%, 54%);
+            }
+
+            & > svg {
+              width: 20px;
+              height: 20px;
             }
           }
         }

@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -102,10 +103,11 @@ const Sidebar = () => {
       <div className={`${styles.sidebar__user} ${styles.user}`}>
         <Image
           className={styles.user__image}
-          src={user?.img || "/noavatar.png"}
+          src="/noavatar.png"
           alt="avatar"
           width="50"
           height="50"
+          priority={true}
         />
         <div className={styles.user__detail}>
           <span className={styles.name}>{user?.name}</span>
