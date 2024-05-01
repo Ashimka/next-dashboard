@@ -5,13 +5,14 @@ import { useForm } from "react-hook-form";
 import PhoneInput from "./PhoneInput";
 import PasswordInput from "./PasswordInput";
 
-import styles from "@/styles/auth/index.module.scss";
-import spinnerStyles from "@/styles/spinner/index.module.scss";
 import { showAuthError } from "@/utils/errors";
 import { useLoginUserMutation } from "@/features/slice/auth/authApiSlice";
 import { setUser } from "@/features/slice/apiSlice";
 import { useAppDispatch } from "@/hooks";
 import { IInputs } from "@/types/auth";
+
+import spinnerStyles from "@/styles/spinner/index.module.scss";
+import styles from "@/styles/auth/index.module.scss";
 
 const LoginForm = () => {
   const [authUser, { data: loginData, isLoading, isError, isSuccess, error }] =

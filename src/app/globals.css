@@ -71,3 +71,43 @@ h3 {
   min-width: 310px;
   max-height: 400px;
 }
+.label {
+  position: relative;
+  width: 100%;
+}
+.input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+.error_alert {
+  position: absolute;
+  font-size: 12px;
+  color: red;
+  left: 10px;
+  bottom: -10px;
+}
+.button_input {
+  margin-top: 20px;
+  position: relative;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--btn);
+  background-color: var(--btn);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  cursor: pointer;
+  &:active {
+    transform: scale(0.95);
+  }
+  &:focus {
+    outline: none;
+  }
+}

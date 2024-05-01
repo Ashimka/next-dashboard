@@ -6,6 +6,7 @@ import { MdDelete } from "react-icons/md";
 import styles from "@/styles/category/index.module.scss";
 import Modal from "@/components/Modal/Modal";
 import { useRouter } from "next/navigation";
+import CatForm from "@/components/Categories/CatForm";
 
 const CategoryPage = () => {
   const router = useRouter();
@@ -98,12 +99,7 @@ const CategoryPage = () => {
       </div>
 
       <Modal title="Cat" onClose={onClose}>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eveniet
-          facilis eos voluptates veritatis harum. A quidem mollitia, voluptatem
-          expedita maxime sunt culpa officia et quaerat quod laboriosam pariatur
-          odio iste!
-        </p>
+        <CatForm onClose={onClose} />
       </Modal>
     </>
   );
