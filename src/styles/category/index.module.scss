@@ -1,0 +1,104 @@
+.cat {
+  margin-top: 10px;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .cat_btn {
+      background-color: hsl(204, 71%, 38%);
+      color: #d0e4f5;
+      padding: 5px 10px;
+      &:hover {
+        cursor: pointer;
+        background-color: hsl(227, 71%, 40%);
+        color: #fff;
+      }
+    }
+  }
+  &__list {
+    .blueTable {
+      border: 2px solid #1c6ea4;
+      background-color: #eeeeee;
+      width: 100%;
+      text-align: left;
+      border-collapse: collapse;
+
+      &_thead {
+        background: #1c6ea4;
+        background: -moz-linear-gradient(
+          top,
+          #5592bb 0%,
+          #327cad 66%,
+          #1c6ea4 100%
+        );
+        background: -webkit-linear-gradient(
+          top,
+          #5592bb 0%,
+          #327cad 66%,
+          #1c6ea4 100%
+        );
+        background: linear-gradient(
+          to bottom,
+          #5592bb 0%,
+          #327cad 66%,
+          #1c6ea4 100%
+        );
+        border-bottom: 2px solid #444444;
+
+        th {
+          font-size: 18px;
+          font-weight: bold;
+          color: #ffffff;
+          border-left: 2px solid #d0e4f5;
+          border: 2px solid #aaaaaa;
+          padding: 5px 8px;
+
+          &:first-child {
+            border-left: none;
+          }
+        }
+        .cat {
+          width: 90%;
+        }
+      }
+      &_tbody {
+        &_tr:nth-child(even) {
+          background: #d0e4f5;
+        }
+        td {
+          font-size: 16px;
+          border: 1px solid #aaaaaa;
+          padding: 5px 4px;
+
+          &:first-child {
+            text-align: center;
+          }
+        }
+        .table_btn {
+          display: flex;
+          justify-content: space-around;
+
+          &__edit {
+            background: inherit;
+            color: hsl(120, 95%, 41%);
+
+            &:hover {
+              cursor: pointer;
+              color: hsl(120, 95%, 47%);
+            }
+          }
+          &__delete {
+            background: inherit;
+            color: hsl(9, 100%, 64%);
+            &:hover {
+              cursor: pointer;
+              color: hsl(9, 100%, 54%);
+            }
+          }
+        }
+      }
+    }
+  }
+}

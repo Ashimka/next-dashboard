@@ -41,7 +41,7 @@ const menuItems = [
       },
       {
         title: "Categories",
-        path: "/admins/сategories",
+        path: "/admins/categories",
         icon: <MdOutlineCategory />,
       },
     ],
