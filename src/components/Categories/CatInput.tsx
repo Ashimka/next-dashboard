@@ -6,17 +6,17 @@ const CatInput = ({ register, errors }: ICatPageInput) => {
     <>
       <label className="label" htmlFor="cat">
         <input
-          {...register("category", {
+          {...register("name", {
             required: "Введите категорию",
           })}
           type="text"
-          name="category"
+          name="name"
           id="cat"
           placeholder="Категория"
           className="input"
         />
-        {errors.category && (
-          <span className="error_alert">{errors.category?.message}</span>
+        {errors.name && (
+          <span className="error_alert">{errors.name?.message}</span>
         )}
       </label>
     </>

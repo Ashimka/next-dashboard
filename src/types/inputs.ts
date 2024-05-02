@@ -1,7 +1,7 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 export interface ICatInputs {
-  category: string;
+  name: string;
 }
 export interface ICatPageInput {
   register: UseFormRegister<ICatInputs>;
