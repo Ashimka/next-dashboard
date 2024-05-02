@@ -9,7 +9,14 @@ export const catApi = apiApp.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["CatList"],
+    }),
+    allCategory: builder.query<any, void>({
+      query: () => ({
+        url: "/admins/category",
+      }),
+      providesTags: ["CatList"],
     }),
   }),
 });
-export const { useNewCategoryMutation } = catApi;
+export const { useNewCategoryMutation, useAllCategoryQuery } = catApi;

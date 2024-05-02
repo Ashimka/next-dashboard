@@ -7,3 +7,7 @@ export interface ICatPageInput {
   register: UseFormRegister<ICatInputs>;
   errors: FieldErrors<ICatInputs>;
 }
+export interface IResCat {
+  id: number;
+  name: string;
+}

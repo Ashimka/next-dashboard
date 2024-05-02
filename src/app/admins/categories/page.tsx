@@ -7,9 +7,13 @@ import styles from "@/styles/category/index.module.scss";
 import Modal from "@/components/Modal/Modal";
 import { useRouter } from "next/navigation";
 import CatForm from "@/components/Categories/CatForm";
+import { useAllCategoryQuery } from "@/features/slice/category/catSlice";
+import { IResCat } from "@/types/inputs";
 
 const CategoryPage = () => {
   const router = useRouter();
+
+  const { isSuccess, data: cats } = useAllCategoryQuery();
 
   const onClose = useCallback(() => {
     router.push("/admins/categories");
@@ -51,48 +55,23 @@ const CategoryPage = () => {
               </tr>
             </thead>
             <tbody className={styles.blueTable_tbody}>
-              <tr className={styles.blueTable_tbody_tr}>
-                <td>1</td>
-                <td>2</td>
-                <td>
-                  <div className={styles.table_btn}>
-                    <button className={styles.table_btn__edit}>
-                      <FaEdit />
-                    </button>
-                    <button className={styles.table_btn__delete}>
-                      <MdDelete />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr className={styles.blueTable_tbody_tr}>
-                <td>1</td>
-                <td>2</td>
-                <td>
-                  <div className={styles.table_btn}>
-                    <button className={styles.table_btn__edit}>
-                      <FaEdit />
-                    </button>
-                    <button className={styles.table_btn__delete}>
-                      <MdDelete />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr className={styles.blueTable_tbody_tr}>
-                <td>1</td>
-                <td>2</td>
-                <td>
-                  <div className={styles.table_btn}>
-                    <button className={styles.table_btn__edit}>
-                      <FaEdit />
-                    </button>
-                    <button className={styles.table_btn__delete}>
-                      <MdDelete />
-                    </button>
-                  </div>
-                </td>
-              </tr>
+              {isSuccess &&
+                cats.map((item: IResCat) => (
+                  <tr key={item.id} className={styles.blueTable_tbody_tr}>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>
+                      <div className={styles.table_btn}>
+                        <button className={styles.table_btn__edit}>
+                          <FaEdit />
+                        </button>
+                        <button className={styles.table_btn__delete}>
+                          <MdDelete />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

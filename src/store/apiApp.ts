@@ -49,5 +49,6 @@ const baseQueryWithReauth: BaseQueryFn<
 
 export const apiApp = createApi({
   baseQuery: baseQueryWithReauth,
+  tagTypes: ["CatList"],
   endpoints: (builder) => ({}),
 });
