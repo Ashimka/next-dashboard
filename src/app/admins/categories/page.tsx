@@ -7,13 +7,17 @@ import styles from "@/styles/category/index.module.scss";
 import Modal from "@/components/Modal/Modal";
 import { useRouter } from "next/navigation";
 import CatForm from "@/components/Categories/CatForm";
-import { useAllCategoryQuery } from "@/features/slice/category/catSlice";
+import {
+  useAllCategoryQuery,
+  useDeleteCategoryMutation,
+} from "@/features/slice/category/catSlice";
 import { IResCat } from "@/types/inputs";
 
 const CategoryPage = () => {
   const router = useRouter();
 
   const { isSuccess, data: cats } = useAllCategoryQuery();
+  const [deleteCat] = useDeleteCategoryMutation();
 
   const onClose = useCallback(() => {
     router.push("/admins/categories");
@@ -35,6 +39,10 @@ const CategoryPage = () => {
       }
     );
   }, [onClose]);
+
+  const handleDeleteCategory = async (id: number) => {
+    await deleteCat(id);
+  };
 
   return (
     <>
@@ -65,7 +73,10 @@ const CategoryPage = () => {
                         <button className={styles.table_btn__edit}>
                           <FaEdit />
                         </button>
-                        <button className={styles.table_btn__delete}>
+                        <button
+                          className={styles.table_btn__delete}
+                          onClick={() => handleDeleteCategory(item.id)}
+                        >
                           <MdDelete />
                         </button>
                       </div>

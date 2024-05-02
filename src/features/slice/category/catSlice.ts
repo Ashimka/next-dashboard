@@ -17,6 +17,13 @@ export const catApi = apiApp.injectEndpoints({
       }),
       providesTags: ["CatList"],
     }),
+    deleteCategory: builder.mutation({
+      query: (id) => ({
+        url: `/admins/category/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["CatList"],
+    }),
   }),
 });
-export const { useNewCategoryMutation, useAllCategoryQuery } = catApi;
+export const { useNewCategoryMutation, useAllCategoryQuery, useDeleteCategoryMutation } = catApi;
