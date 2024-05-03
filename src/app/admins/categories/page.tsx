@@ -65,6 +65,11 @@ const CategoryPage = () => {
     }
   }, [isConfirm, dataCat, deleteCat]);
 
+  const onModalEditOpen = (data: IResCat) => {
+    router.push(`/admins/categories?id=${data.name}&modal=true`);
+    document.querySelector("body")?.classList.add("hidden");
+  };
+
   return (
     <>
       <div className={styles.cat}>
@@ -91,7 +96,10 @@ const CategoryPage = () => {
                     <td>{item.name}</td>
                     <td>
                       <div className={styles.table_btn}>
-                        <button className={styles.table_btn__edit}>
+                        <button
+                          className={styles.table_btn__edit}
+                          onClick={() => onModalEditOpen(item)}
+                        >
                           <FaEdit />
                         </button>
                         <button

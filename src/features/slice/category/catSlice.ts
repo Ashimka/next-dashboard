@@ -1,5 +1,5 @@
 import { apiApp } from "@/store/apiApp";
-import { ICatInputs } from "@/types/inputs";
+import { ICatInputs, IResCat } from "@/types/inputs";
 
 export const catApi = apiApp.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,6 +24,19 @@ export const catApi = apiApp.injectEndpoints({
       }),
       invalidatesTags: ["CatList"],
     }),
+    editCategory: builder.mutation({
+      query: (data: IResCat) => ({
+        url: `/admins/category/${data.id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["CatList"],
+    }),
   }),
 });
-export const { useNewCategoryMutation, useAllCategoryQuery, useDeleteCategoryMutation } = catApi;
+export const {
+  useNewCategoryMutation,
+  useAllCategoryQuery,
+  useDeleteCategoryMutation,
+  useEditCategoryMutation,
+} = catApi;

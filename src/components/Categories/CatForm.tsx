@@ -1,10 +1,14 @@
-import { ICatInputs } from "@/types/inputs";
+import { ICatInputs, IResCat } from "@/types/inputs";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useSearchParams } from "next/navigation";
 
 import CatInput from "./CatInput";
-import { useNewCategoryMutation } from "@/features/slice/category/catSlice";
+import {
+  useEditCategoryMutation,
+  useNewCategoryMutation,
+} from "@/features/slice/category/catSlice";
 import { showAuthError } from "@/utils/errors";
 
 import styles from "@/styles/category/index.module.scss";
@@ -15,29 +19,50 @@ interface Props {
 }
 
 const CatForm = ({ onClose }: Props) => {
+  const params = useSearchParams();
+  const catParams = params.get("id");
+
   const [cat, { isLoading, isError, isSuccess, error }] =
     useNewCategoryMutation();
+
+  const [
+    editCat,
+    {
+      isLoading: isLoadingEdit,
+      isError: isErrorEdit,
+      isSuccess: isSuccessEdit,
+      error: errorEdit,
+    },
+  ] = useEditCategoryMutation();
 
   const {
     register,
     formState: { errors },
     handleSubmit,
+    setValue,
     resetField,
   } = useForm<ICatInputs>();
 
-  const onSubmit = async (data: ICatInputs) => {
-    await cat({
-      name: data.name,
-    }).unwrap();
+  const onSubmit = async (data: IResCat) => {
+    if (catParams) {
+      await editCat({
+        id: catParams,
+        name: data.name,
+      }).unwrap();
+    } else {
+      await cat({
+        name: data.name,
+      }).unwrap();
+    }
 
     resetField("name");
   };
   React.useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || isSuccessEdit) {
       onClose();
-      toast.success("Категория добавлена");
+      toast.success(isSuccess ? "Категория добавлена" : "Изменено");
     }
-  }, [isSuccess, onClose]);
+  }, [isSuccess, isSuccessEdit, onClose]);
 
   React.useEffect(() => {
     if (isError) {
@@ -46,13 +71,23 @@ const CatForm = ({ onClose }: Props) => {
       }
       onClose();
     }
-  }, [isError, error, onClose]);
+    if (errorEdit) {
+      if (errorEdit !== undefined && "status" in errorEdit) {
+        showAuthError(errorEdit);
+      }
+      onClose();
+    }
+  }, [isError, isErrorEdit, error, errorEdit, onClose]);
   return (
     <>
       <form className={styles.category_form} onSubmit={handleSubmit(onSubmit)}>
-        <CatInput register={register} errors={errors} />
+        <CatInput register={register} setValue={setValue} errors={errors} />
         <button className="button_input">
-          {isLoading ? <div className={spinnerStyle.spinner} /> : "Добавить"}
+          {isLoading || isLoadingEdit ? (
+            <div className={spinnerStyle.spinner} />
+          ) : (
+            "Добавить"
+          )}
         </button>
       </form>
     </>

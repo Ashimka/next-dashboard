@@ -1,7 +1,19 @@
-import { ICatPageInput } from "@/types/inputs";
 import React from "react";
+import { useSearchParams } from "next/navigation";
 
-const CatInput = ({ register, errors }: ICatPageInput) => {
+import { ICatPageInput } from "@/types/inputs";
+
+const CatInput = ({ register, setValue, errors }: ICatPageInput) => {
+  const params = useSearchParams();
+
+  const catParams = params.get("id");
+
+  React.useEffect(() => {
+    if (catParams && setValue) {
+      setValue("name", catParams);
+    }
+  }, [catParams, setValue]);
+
   return (
     <>
       <label className="label" htmlFor="cat">
