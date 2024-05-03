@@ -12,9 +12,13 @@ import {
   useDeleteCategoryMutation,
 } from "@/features/slice/category/catSlice";
 import { IResCat } from "@/types/inputs";
+import Dialog from "@/components/Dialog/Dialog";
+import { toast } from "react-toastify";
 
 const CategoryPage = () => {
   const router = useRouter();
+  const [isConfirm, setIsConfirm] = React.useState(false);
+  const [dataCat, setDataCat] = React.useState<IResCat | null>(null);
 
   const { isSuccess, data: cats } = useAllCategoryQuery();
   const [deleteCat] = useDeleteCategoryMutation();
@@ -29,6 +33,10 @@ const CategoryPage = () => {
     document.querySelector("body")?.classList.add("hidden");
   };
 
+  const onConfirm = (conf: boolean) => {
+    setIsConfirm(conf);
+  };
+
   React.useEffect(() => {
     document.addEventListener(
       "keydown",
@@ -40,9 +48,22 @@ const CategoryPage = () => {
     );
   }, [onClose]);
 
-  const handleDeleteCategory = async (id: number) => {
-    await deleteCat(id);
+  const onDialigOpen = (data: IResCat) => {
+    router.push("/admins/categories?dialog=true");
+    setDataCat(data);
+    document.querySelector("body")?.classList.add("hidden");
   };
+
+  React.useEffect(() => {
+    if (isConfirm && dataCat) {
+      const handleDeleteCategory = async () => {
+        await deleteCat(dataCat.id);
+        setIsConfirm(false);
+      };
+      handleDeleteCategory();
+      toast.success("Сатегория удалена!");
+    }
+  }, [isConfirm, dataCat, deleteCat]);
 
   return (
     <>
@@ -75,7 +96,7 @@ const CategoryPage = () => {
                         </button>
                         <button
                           className={styles.table_btn__delete}
-                          onClick={() => handleDeleteCategory(item.id)}
+                          onClick={() => onDialigOpen(item)}
                         >
                           <MdDelete />
                         </button>
@@ -88,9 +109,12 @@ const CategoryPage = () => {
         </div>
       </div>
 
-      <Modal title="Cat" onClose={onClose}>
+      <Modal title="Добавление категории" onClose={onClose}>
         <CatForm onClose={onClose} />
       </Modal>
+      <Dialog title="Удаление" onClose={onClose} onConfirm={onConfirm}>
+        <span>{`Подтвердите удаление ${dataCat?.name}`}</span>
+      </Dialog>
     </>
   );
 };

@@ -40,4 +40,24 @@
   &__body {
     padding: 10px;
   }
+  &__footer {
+    background-color: var(--textSoft);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+
+    & > button {
+      padding: 4px;
+      border-radius: 3px;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .btn_no {
+      background-color: green;
+    }
+    .btn_yes {
+      background-color: red;
+    }
+  }
 }
