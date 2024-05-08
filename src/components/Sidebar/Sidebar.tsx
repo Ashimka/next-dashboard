@@ -26,22 +26,22 @@ const menuItems = [
     title: "Pages",
     list: [
       {
-        title: "Dashboard",
+        title: "Главная",
         path: "/admins",
         icon: <MdDashboard />,
       },
       {
-        title: "Users",
+        title: "Пользователи",
         path: "/admins/users",
         icon: <MdSupervisedUserCircle />,
       },
       {
-        title: "Products",
+        title: "Продукты",
         path: "/admins/products",
         icon: <MdShoppingBag />,
       },
       {
-        title: "Categories",
+        title: "Категории",
         path: "/admins/categories",
         icon: <MdOutlineCategory />,
       },
@@ -127,7 +127,7 @@ const Sidebar = () => {
 
       <button onClick={() => handleLogout()} className={styles.sidebar__logout}>
         <MdLogout />
-        Logout
+        Выйти
       </button>
     </div>
   );

@@ -1,7 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-
 import {
   MdNotifications,
   MdOutlineChat,
@@ -12,13 +10,9 @@ import {
 import styles from "@/styles/navbar/index.module.scss";
 
 const Navbar = () => {
-  const pathname = usePathname();
-
   return (
     <header className={styles.navbar}>
-      <div className={styles.navbar__title}>
-        {pathname.split("/").pop() || "Dashboard"}
-      </div>
+      <div className={styles.navbar__title}>АДМИН ПАНЕЛЬ</div>
       <div className={styles.navbar__menu}>
         <div className={styles.navbar__search}>
           <MdSearch />

@@ -85,6 +85,8 @@ const CatForm = ({ onClose }: Props) => {
         <button className="button_input">
           {isLoading || isLoadingEdit ? (
             <div className={spinnerStyle.spinner} />
+          ) : catParams ? (
+            "Изменить"
           ) : (
             "Добавить"
           )}

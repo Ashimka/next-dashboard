@@ -12,3 +12,10 @@ export interface IResCat {
   id?: number | string;
   name: string;
 }
+export interface IProduct {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  image?: string;
+}

@@ -74,16 +74,16 @@ const CategoryPage = () => {
     <>
       <div className={styles.cat}>
         <div className={styles.cat__header}>
-          <div className={styles.cat_title}>Categories</div>
+          <div className={styles.cat_title}>Категории</div>
           <button className={styles.cat_btn} onClick={onModalOpen}>
-            ADD
+            Добавить
           </button>
         </div>
         <div className={styles.cat__list}>
           <table className={styles.blueTable}>
             <thead className={styles.blueTable_thead}>
               <tr>
-                <th>№</th>
+                <th>ID</th>
                 <th className={styles.cat}>Категория</th>
                 <th>Опции</th>
               </tr>
