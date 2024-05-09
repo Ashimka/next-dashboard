@@ -11,6 +11,7 @@ import {
   useAllCategoryQuery,
   useDeleteCategoryMutation,
 } from "@/features/slice/category/catSlice";
+import { touchEscape } from "@/hooks/useClickEscape";
 import { IResCat } from "@/types/inputs";
 import Dialog from "@/components/Dialog/Dialog";
 import { toast } from "react-toastify";
@@ -38,14 +39,7 @@ const CategoryPage = () => {
   };
 
   React.useEffect(() => {
-    document.addEventListener(
-      "keydown",
-      (event: KeyboardEvent | React.KeyboardEvent) => {
-        if (event.key === "Escape") {
-          onClose();
-        }
-      }
-    );
+    touchEscape(onClose);
   }, [onClose]);
 
   const onDialigOpen = (data: IResCat) => {
