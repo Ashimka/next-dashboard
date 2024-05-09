@@ -3,7 +3,7 @@ import React from "react";
 
 import spinnerStyle from "@/styles/spinner/index.module.scss";
 import { useForm } from "react-hook-form";
-import { IProduct } from "@/types/product";
+import { IProduct, IProductInput } from "@/types/product";
 import NameInput from "./NameInput";
 import DescInput from "./DescInput";
 import PriceInput from "./PriceInput";

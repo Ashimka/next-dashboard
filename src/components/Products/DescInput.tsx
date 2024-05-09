@@ -1,7 +1,12 @@
 import { IProductInput } from "@/types/product";
 import React from "react";
 
-const DescInput = ({ register, errors }: IProductInput) => {
+const DescInput = ({ register, setValue, data, errors }: IProductInput) => {
+  React.useEffect(() => {
+    if (setValue && data?.description) {
+      setValue("description", data.description);
+    }
+  }, [data, setValue]);
   return (
     <>
       <label className="label" htmlFor="description">

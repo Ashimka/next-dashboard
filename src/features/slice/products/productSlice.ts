@@ -24,6 +24,14 @@ export const productApi = apiApp.injectEndpoints({
       }),
       invalidatesTags: ["ProductsList"],
     }),
+    updateProduct: builder.mutation({
+      query: (data: IProduct) => ({
+        url: `/admins/products/${data.id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["ProductsList"],
+    }),
   }),
 });
 
@@ -31,4 +39,5 @@ export const {
   useAllProductsQuery,
   useCreateProductMutation,
   useDeleteProductMutation,
+  useUpdateProductMutation,
 } = productApi;

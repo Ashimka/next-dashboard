@@ -1,7 +1,13 @@
 import { IProductInput } from "@/types/product";
 import React from "react";
 
-const NameInput = ({ register, errors }: IProductInput) => {
+const NameInput = ({ register, setValue, data, errors }: IProductInput) => {
+  React.useEffect(() => {
+    if (setValue && data?.name) {
+      setValue("name", data.name);
+    }
+  }, [data, setValue]);
+
   return (
     <>
       <label className="label" htmlFor="name">

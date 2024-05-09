@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 export interface IProduct {
   id?: string;
@@ -10,5 +10,7 @@ export interface IProduct {
 
 export interface IProductInput {
   register: UseFormRegister<IProduct>;
+  setValue?: UseFormSetValue<IProduct>;
   errors: FieldErrors<IProduct>;
+  data?: IProduct;
 }

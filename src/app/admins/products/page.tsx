@@ -12,6 +12,7 @@ import { touchEscape } from "@/hooks/useClickEscape";
 import Modal from "@/components/Modal/Modal";
 import Dialog from "@/components/Dialog/Dialog";
 import FormCreateProduct from "@/components/Products/FormCreateProduct";
+import FormUpdateProduct from "@/components/Products/FormUpdateProduct";
 
 import { IProduct } from "@/types/product";
 
@@ -23,9 +24,7 @@ import styles from "@/styles/products/index.module.scss";
 
 const ProductsPage = () => {
   const router = useRouter();
-  const [productIdName, setProductIdName] = React.useState<IProduct | null>(
-    null
-  );
+  const [productData, setProductData] = React.useState<IProduct | null>(null);
   const [isConfirm, setIsConfirm] = React.useState(false);
 
   const { isSuccess, data: products } = useAllProductsQuery();
@@ -38,13 +37,20 @@ const ProductsPage = () => {
 
   const onDialogOpen = (data: IProduct) => {
     router.push("/admins/products?dialog=true");
-    setProductIdName(data);
+    setProductData(data);
+    document.querySelector("body")?.classList.add("hidden");
+  };
+
+  const onEditModalOpen = (data: IProduct) => {
+    router.push("/admins/products?modal=true");
+    setProductData(data);
     document.querySelector("body")?.classList.add("hidden");
   };
 
   const onClose = React.useCallback(() => {
     router.push("/admins/products");
     document.querySelector("body")?.classList.remove("hidden");
+    setProductData(null);
   }, [router]);
 
   React.useEffect(() => {
@@ -56,15 +62,15 @@ const ProductsPage = () => {
   };
 
   React.useEffect(() => {
-    if (isConfirm && productIdName?.id) {
+    if (isConfirm && productData?.id) {
       const handleDeleteProduct = async () => {
-        await deleteProduct(productIdName.id);
+        await deleteProduct(productData.id);
         setIsConfirm(false);
       };
       handleDeleteProduct();
       toast.success("Удалено!");
     }
-  }, [isConfirm, productIdName, deleteProduct]);
+  }, [isConfirm, productData, deleteProduct]);
   return (
     <>
       <div className={styles.products}>
@@ -88,7 +94,7 @@ const ProductsPage = () => {
                       }
                       alt={item.name}
                       width={150}
-                      height={100}
+                      height={120}
                       priority={true}
                     />
                   </div>
@@ -101,7 +107,10 @@ const ProductsPage = () => {
                       {`Цена: ${item.price}`} &#8381;
                     </span>
                     <div className={styles.desc__buttons}>
-                      <button className="edit_btn">
+                      <button
+                        className="edit_btn"
+                        onClick={() => onEditModalOpen(item)}
+                      >
                         <FaEdit />
                       </button>
                       <button
@@ -118,11 +127,18 @@ const ProductsPage = () => {
         </div>
       </div>
 
-      <Modal title="Добавить продукт" onClose={onClose}>
-        <FormCreateProduct onClose={onClose} />
+      <Modal
+        title={productData ? "Редактировать" : "Добавить продукт"}
+        onClose={onClose}
+      >
+        {productData ? (
+          <FormUpdateProduct onClose={onClose} dataProduct={productData} />
+        ) : (
+          <FormCreateProduct onClose={onClose} />
+        )}
       </Modal>
       <Dialog title="Удаление" onClose={onClose} onConfirm={onConfirm}>
-        <span>{`Подтвердите удаление ${productIdName?.name}`}</span>
+        <span>{`Подтвердите удаление ${productData?.name}`}</span>
       </Dialog>
     </>
   );
