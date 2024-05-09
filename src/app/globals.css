@@ -36,6 +36,9 @@ h3 {
   font-weight: inherit;
   font-size: inherit;
 }
+button:hover {
+  cursor: pointer;
+}
 .hidden {
   overflow: hidden;
   filter: blur(3px);
@@ -109,5 +112,26 @@ h3 {
   }
   &:focus {
     outline: none;
+  }
+}
+
+.edit_btn {
+  width: 20px;
+  height: 20px;
+  background: inherit;
+  color: hsl(120, 95%, 47%);
+
+  &:hover {
+    color: hsl(120, 95%, 41%);
+  }
+}
+.delete_btn {
+  width: 20px;
+  height: 20px;
+  background: inherit;
+  color: hsl(9, 100%, 64%);
+
+  &:hover {
+    color: hsl(9, 100%, 54%);
   }
 }
