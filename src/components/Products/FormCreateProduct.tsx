@@ -3,7 +3,10 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
 import { useCreateProductMutation } from "@/features/slice/products/productSlice";
-import { useFileUploadMutation } from "@/features/slice/fileUpload/fileUploadSlice";
+import {
+  useDeleteFileMutation,
+  useFileUploadMutation,
+} from "@/features/slice/fileUpload/fileUploadSlice";
 
 import NameInput from "./NameInput";
 import DescInput from "./DescInput";
@@ -26,6 +29,7 @@ const FormCreateProduct = ({ onClose }: Props) => {
     useCreateProductMutation();
 
   const [fileUpload] = useFileUploadMutation();
+  const [fileDelete] = useDeleteFileMutation();
 
   const {
     register,
@@ -58,6 +62,11 @@ const FormCreateProduct = ({ onClose }: Props) => {
 
       setImageUrl(name);
     }
+  };
+
+  const handleDeleteImage = async () => {
+    await fileDelete({ filename: imageUrl });
+    setImageUrl("");
   };
 
   React.useEffect(() => {
@@ -100,7 +109,13 @@ const FormCreateProduct = ({ onClose }: Props) => {
               height={120}
               priority={true}
             />
-            <span className="out_image_delete">&#10060;</span>
+            <span
+              className="out_image_delete"
+              title="Удалить?"
+              onClick={handleDeleteImage}
+            >
+              &#10060;
+            </span>
           </div>
         )}
 

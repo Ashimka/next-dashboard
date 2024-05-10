@@ -9,7 +9,14 @@ export const fileUploadApi = apiApp.injectEndpoints({
         body: file,
       }),
     }),
+    deleteFile: builder.mutation({
+      query: (file) => ({
+        url: "/upload",
+        method: "DELETE",
+        body: file,
+      }),
+    }),
   }),
 });
 
-export const { useFileUploadMutation } = fileUploadApi;
+export const { useFileUploadMutation, useDeleteFileMutation } = fileUploadApi;
