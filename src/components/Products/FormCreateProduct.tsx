@@ -1,16 +1,20 @@
-import { useCreateProductMutation } from "@/features/slice/products/productSlice";
 import React, { ChangeEvent } from "react";
-
-import spinnerStyle from "@/styles/spinner/index.module.scss";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import { IProduct, IProductInput } from "@/types/product";
+
+import { useCreateProductMutation } from "@/features/slice/products/productSlice";
+import { useFileUploadMutation } from "@/features/slice/fileUpload/fileUploadSlice";
+
 import NameInput from "./NameInput";
 import DescInput from "./DescInput";
 import PriceInput from "./PriceInput";
-import { toast } from "react-toastify";
-import { showAuthError } from "@/utils/errors";
 import FileInput from "./FileInput";
-import { useFileUploadMutation } from "@/features/slice/fileUpload/fileUploadSlice";
+
+import { showAuthError } from "@/utils/errors";
+import { IProduct } from "@/types/product";
+
+import spinnerStyle from "@/styles/spinner/index.module.scss";
+import Image from "next/image";
 
 interface Props {
   onClose: () => void;
@@ -86,6 +90,19 @@ const FormCreateProduct = ({ onClose }: Props) => {
           errors={errors}
           handleImage={handleImage}
         />
+
+        {imageUrl && (
+          <div className="out_image">
+            <Image
+              src={`${process.env.NEXT_PUBLIC_SERVER_IMAGE_URL}/${imageUrl}`}
+              alt="картинка продукта"
+              width={150}
+              height={120}
+              priority={true}
+            />
+            <span className="out_image_delete">&#10060;</span>
+          </div>
+        )}
 
         <button className="button_input">
           {isLoading ? <div className={spinnerStyle.spinner} /> : "Добавить"}

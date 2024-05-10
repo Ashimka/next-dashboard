@@ -140,3 +140,16 @@ button:hover {
   flex-direction: column;
   gap: 20px;
 }
+.out_image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+}
+.out_image_delete {
+  position: absolute;
+  top: -15px;
+  right: 140px;
+  cursor: pointer;
+}
