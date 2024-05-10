@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 export interface IProduct {
@@ -13,4 +14,5 @@ export interface IProductInput {
   setValue?: UseFormSetValue<IProduct>;
   errors: FieldErrors<IProduct>;
   data?: IProduct;
+  handleImage?: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
