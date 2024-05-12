@@ -58,7 +58,6 @@ const FormCreateProduct = ({ onClose }: Props) => {
       imageData.append("file", event.target.files[0]);
 
       const { name } = await fileUpload(imageData).unwrap();
-      console.log(name);
 
       setImageUrl(name);
     }

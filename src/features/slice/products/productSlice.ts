@@ -1,5 +1,5 @@
 import { apiApp } from "@/store/apiApp";
-import { IProduct } from "@/types/product";
+import { IProduct, IProductUpdate } from "@/types/product";
 
 export const productApi = apiApp.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,7 +25,7 @@ export const productApi = apiApp.injectEndpoints({
       invalidatesTags: ["ProductsList"],
     }),
     updateProduct: builder.mutation({
-      query: (data: IProduct) => ({
+      query: (data: IProductUpdate) => ({
         url: `/admins/products/${data.id}`,
         method: "PATCH",
         body: data,

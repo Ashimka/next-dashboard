@@ -18,9 +18,7 @@ const FileInput = ({
     <>
       <label className="label" htmlFor="file">
         <input
-          {...register("image", {
-            required: "Нет изображения",
-          })}
+          {...register("image")}
           type="file"
           name="file"
           id="file"

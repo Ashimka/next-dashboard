@@ -8,6 +8,13 @@ export interface IProduct {
   price: number;
   image?: string;
 }
+export interface IProductUpdate {
+  id?: string;
+  name?: string;
+  description?: string;
+  price?: number;
+  image?: string;
+}
 
 export interface IProductInput {
   register: UseFormRegister<IProduct>;
