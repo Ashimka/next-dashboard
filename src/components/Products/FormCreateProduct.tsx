@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 import { useCreateProductMutation } from "@/features/slice/products/productSlice";
 import {
@@ -11,6 +11,7 @@ import {
 import NameInput from "./NameInput";
 import DescInput from "./DescInput";
 import PriceInput from "./PriceInput";
+import SelectCategory from "./SelectCategory";
 import FileInput from "./FileInput";
 
 import { showAuthError } from "@/utils/errors";
@@ -35,6 +36,7 @@ const FormCreateProduct = ({ onClose }: Props) => {
     register,
     formState: { errors },
     handleSubmit,
+    control,
     resetField,
   } = useForm<IProduct>();
 
@@ -44,11 +46,13 @@ const FormCreateProduct = ({ onClose }: Props) => {
       description: data.description,
       price: +data.price,
       image: imageUrl,
+      categoryId: +data.categoryId,
     }).unwrap();
 
     resetField("name");
     resetField("description");
     resetField("price");
+    resetField("categoryId");
   };
 
   const handleImage = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -93,6 +97,19 @@ const FormCreateProduct = ({ onClose }: Props) => {
         <NameInput register={register} errors={errors} />
         <DescInput register={register} errors={errors} />
         <PriceInput register={register} errors={errors} />
+        <Controller
+          control={control}
+          name="categoryId"
+          render={({ field: { onChange } }) => {
+            return (
+              <SelectCategory
+                register={register}
+                errors={errors}
+                onChange={onChange}
+              />
+            );
+          }}
+        />
 
         {imageUrl ? (
           <div className="out_image">

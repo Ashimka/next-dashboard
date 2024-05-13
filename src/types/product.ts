@@ -7,6 +7,7 @@ export interface IProduct {
   description: string;
   price: number;
   image?: string;
+  categoryId: number;
 }
 export interface IProductUpdate {
   id?: string;
@@ -22,4 +23,5 @@ export interface IProductInput {
   errors: FieldErrors<IProduct>;
   data?: IProduct;
   handleImage?: (event: ChangeEvent<HTMLInputElement>) => Promise<void>;
+  onChange?: (...event: any[]) => void;
 }

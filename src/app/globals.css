@@ -39,6 +39,14 @@ h3 {
 button:hover {
   cursor: pointer;
 }
+select {
+  appearance: none;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  cursor: pointer;
+}
 .hidden {
   overflow: hidden;
   filter: blur(3px);

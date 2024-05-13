@@ -66,7 +66,7 @@ const FormUpdateProduct = ({ dataProduct, onClose }: Props) => {
       id: dataProduct?.id,
       name: data.name,
       description: data.description,
-      price: data.price,
+      price: +data.price,
       image: imageUrl,
     });
 
