@@ -93,13 +93,8 @@ const FormCreateProduct = ({ onClose }: Props) => {
         <NameInput register={register} errors={errors} />
         <DescInput register={register} errors={errors} />
         <PriceInput register={register} errors={errors} />
-        <FileInput
-          register={register}
-          errors={errors}
-          handleImage={handleImage}
-        />
 
-        {imageUrl && (
+        {imageUrl ? (
           <div className="out_image">
             <Image
               src={`${process.env.NEXT_PUBLIC_SERVER_IMAGE_URL}/${imageUrl}`}
@@ -116,6 +111,12 @@ const FormCreateProduct = ({ onClose }: Props) => {
               &#10060;
             </span>
           </div>
+        ) : (
+          <FileInput
+            register={register}
+            errors={errors}
+            handleImage={handleImage}
+          />
         )}
 
         <button className="button_input">

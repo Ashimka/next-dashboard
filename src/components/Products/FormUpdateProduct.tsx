@@ -113,15 +113,8 @@ const FormUpdateProduct = ({ dataProduct, onClose }: Props) => {
           data={dataProduct}
           errors={errors}
         />
-        <FileInput
-          register={register}
-          setValue={setValue}
-          data={dataProduct}
-          errors={errors}
-          handleImage={handleImage}
-        />
 
-        {imageUrl && (
+        {imageUrl ? (
           <div className="out_image">
             <Image
               src={`${process.env.NEXT_PUBLIC_SERVER_IMAGE_URL}/${imageUrl}`}
@@ -138,6 +131,14 @@ const FormUpdateProduct = ({ dataProduct, onClose }: Props) => {
               &#10060;
             </span>
           </div>
+        ) : (
+          <FileInput
+            register={register}
+            setValue={setValue}
+            data={dataProduct}
+            errors={errors}
+            handleImage={handleImage}
+          />
         )}
 
         <button className="button_input">
