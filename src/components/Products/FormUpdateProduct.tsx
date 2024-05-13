@@ -1,23 +1,25 @@
 import React, { ChangeEvent } from "react";
+import Image from "next/image";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
+import { useUpdateProductMutation } from "@/features/slice/products/productSlice";
+import {
+  useDeleteFileMutation,
+  useFileUploadMutation,
+} from "@/features/slice/fileUpload/fileUploadSlice";
+
 import NameInput from "./NameInput";
 import DescInput from "./DescInput";
 import PriceInput from "./PriceInput";
-
-import { useForm } from "react-hook-form";
-import { useUpdateProductMutation } from "@/features/slice/products/productSlice";
+import FileInput from "./FileInput";
+import SelectCategory from "./SelectCategory";
 
 import { showAuthError } from "@/utils/errors";
 
 import { IProduct } from "@/types/product";
 
 import spinnerStyle from "@/styles/spinner/index.module.scss";
-import { toast } from "react-toastify";
-import FileInput from "./FileInput";
-import Image from "next/image";
-import {
-  useDeleteFileMutation,
-  useFileUploadMutation,
-} from "@/features/slice/fileUpload/fileUploadSlice";
 
 interface Props {
   dataProduct: IProduct;
@@ -38,6 +40,7 @@ const FormUpdateProduct = ({ dataProduct, onClose }: Props) => {
     register,
     formState: { errors },
     handleSubmit,
+    control,
     setValue,
     resetField,
   } = useForm<IProduct>();
@@ -68,6 +71,7 @@ const FormUpdateProduct = ({ dataProduct, onClose }: Props) => {
       description: data.description,
       price: +data.price,
       image: imageUrl,
+      categoryId: +data.categoryId,
     });
 
     resetField("name");
@@ -112,6 +116,21 @@ const FormUpdateProduct = ({ dataProduct, onClose }: Props) => {
           setValue={setValue}
           data={dataProduct}
           errors={errors}
+        />
+        <Controller
+          control={control}
+          name="categoryId"
+          render={({ field: { onChange } }) => {
+            return (
+              <SelectCategory
+                register={register}
+                setValue={setValue}
+                data={dataProduct}
+                errors={errors}
+                onChange={onChange}
+              />
+            );
+          }}
         />
 
         {imageUrl ? (

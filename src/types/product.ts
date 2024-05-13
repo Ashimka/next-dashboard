@@ -15,6 +15,7 @@ export interface IProductUpdate {
   description?: string;
   price?: number;
   image?: string;
+  categoryId?: number;
 }
 
 export interface IProductInput {

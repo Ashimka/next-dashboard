@@ -14,6 +14,12 @@ const SelectCategory = ({
 }: IProductInput) => {
   const { data: category } = useAllCategoryQuery();
 
+  React.useEffect(() => {
+    if (setValue && data?.categoryId) {
+      setValue("categoryId", data.categoryId);
+    }
+  }, [data, setValue]);
+
   return (
     <>
       <select
