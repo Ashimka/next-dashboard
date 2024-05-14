@@ -16,11 +16,24 @@
 
       .basket,
       .user {
-        width: 64px;
+        width: 76px;
         height: 42px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
+
+        .control {
+          background-color: #f91155;
+          border-radius: 8px;
+          color: #fff;
+          height: 16px;
+          line-height: 17px;
+          padding: 0 8px;
+          position: absolute;
+          right: -5px;
+          top: -5px;
+        }
 
         & > svg {
           height: 24px;

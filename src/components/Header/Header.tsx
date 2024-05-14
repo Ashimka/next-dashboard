@@ -14,6 +14,7 @@ import styles from "@/styles/header/index.module.scss";
 const Header = () => {
   const { accessToken } = useAppSelector(selectAuth);
   const router = useRouter();
+  let count = 0;
 
   const clickToUserProfile = () => {
     if (!accessToken) {
@@ -32,6 +33,9 @@ const Header = () => {
             <div className="header__logo">Sushi shop</div>
             <div className={styles.header__user}>
               <div className={styles.basket}>
+                <span className={count > 0 ? styles.control : ""}>
+                  {count > 0 && count}
+                </span>
                 <PiShoppingBagOpen />
                 <span>Корзина</span>
               </div>
