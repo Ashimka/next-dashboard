@@ -1,0 +1,40 @@
+.header_main {
+  background: var(--bg);
+  color: var(--textSoft);
+  padding: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__user {
+      display: flex;
+      justify-self: center;
+      align-items: center;
+      gap: 20px;
+
+      .basket,
+      .user {
+        width: 64px;
+        height: 42px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & > svg {
+          height: 24px;
+          width: 24px;
+        }
+
+        & > span {
+          font-size: 14px;
+        }
+        &:hover {
+          cursor: pointer;
+          color: var(--text);
+        }
+      }
+    }
+  }
+}

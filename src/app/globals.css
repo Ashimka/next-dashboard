@@ -51,6 +51,10 @@ input[type="file"]::file-selector-button {
   overflow: hidden;
   filter: blur(3px);
 }
+#root {
+  display: flex;
+  flex-direction: column;
+}
 .root {
   display: flex;
 }
@@ -68,6 +72,7 @@ input[type="file"]::file-selector-button {
 }
 .main {
   flex: 1 1 auto;
+  height: 100vh;
 }
 .container {
   max-width: 1024px;
