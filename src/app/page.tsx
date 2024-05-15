@@ -3,8 +3,11 @@ import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { useAllProductsMainQuery } from "@/features/slice/main/mainSlice";
 import { IProduct } from "@/types/product";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+
+import styles from "@/styles/main/index.module.scss";
 
 export default function Home() {
   const { isSuccess, data: products } = useAllProductsMainQuery();
@@ -13,18 +16,46 @@ export default function Home() {
       <div id="root">
         <Header />
         <main className="main">
-          <Link href={"/auth/login"}> Login</Link>
-          <Link href={"/admins"}> Admin</Link>
-          <Link href={"/admins/users"}> Users</Link>
+          <div className="container">
+            <Link href={"/auth/login"}> Login</Link>
+            <Link href={"/admins"}> Admin</Link>
+            <Link href={"/admins/users"}> Users</Link>
 
-          {isSuccess &&
-            products.map((item: IProduct) => (
-              <div key={item.id}>
-                <h4>{item.name}</h4>
-                <p>{item.description}</p>
-                <span>{item.price}</span>
+            <div className="main__products">
+              <div className={styles.product}>
+                {isSuccess &&
+                  products.map((item: IProduct) => (
+                    <div key={item.id} className={styles.product__item}>
+                      <div className={styles.image}>
+                        <Image
+                          src={
+                            item.image
+                              ? `${process.env.NEXT_PUBLIC_SERVER_IMAGE_URL}/${item.image}`
+                              : "/noimage.png"
+                          }
+                          alt={item.name}
+                          width={150}
+                          height={120}
+                          priority={true}
+                        />
+                      </div>
+                      <div className={styles.desc}>
+                        <h4 className={styles.desc__name}>{item.name}</h4>
+                        <p className={styles.desc__description}>
+                          {item.description}
+                        </p>
+                        <div className={styles.desc__footer}>
+                          <span className={styles.price}>
+                            {`Цена: ${item.price}`} &#8381;
+                          </span>
+                          <button className={styles.btn_add}>Добавить</button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
               </div>
-            ))}
+            </div>
+          </div>
         </main>
         <Footer />
       </div>
