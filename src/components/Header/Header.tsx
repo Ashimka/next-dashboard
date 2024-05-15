@@ -3,21 +3,25 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
-import { selectAuth } from "@/features/slice/apiSlice";
-import { useAppSelector } from "@/hooks";
-
 import { PiShoppingBagOpen } from "react-icons/pi";
 import { PiUser } from "react-icons/pi";
 
 import styles from "@/styles/header/index.module.scss";
 
 const Header = () => {
-  const { accessToken } = useAppSelector(selectAuth);
+  const [user, setUser] = React.useState<string | null>(null);
   const router = useRouter();
   let count = 0;
 
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem("user");
+      user && setUser(JSON.parse(user));
+    }
+  }, []);
+
   const clickToUserProfile = () => {
-    if (!accessToken) {
+    if (!user) {
       router.push("/auth/login");
     } else {
       router.push("/users");
@@ -41,7 +45,7 @@ const Header = () => {
               </div>
               <div className={styles.user} onClick={clickToUserProfile}>
                 <PiUser />
-                <span> {accessToken ? "Профиль" : "Войти"}</span>
+                <span> {user ? "Профиль" : "Войти"}</span>
               </div>
             </div>
           </div>

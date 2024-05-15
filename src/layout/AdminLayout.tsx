@@ -10,11 +10,13 @@ import Footer from "@/components/Footer/Footer";
 import { adminRolle } from "@/hooks/useCheckAdminRole";
 import { selectAuth, setUser } from "@/features/slice/apiSlice";
 
+const allowedRoles = ["ADMIN"];
+
 const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { accessToken } = useAppSelector(selectAuth);
-  const isAdmin = adminRolle(accessToken);
+  const isAdmin = adminRolle({ accessToken, allowedRoles });
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
@@ -33,6 +35,7 @@ const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   React.useEffect(() => {
     if (accessToken && !isAdmin) {
       router.push("/");
+      console.log("Нет доступа");
     }
   }, [accessToken, isAdmin, router]);
 

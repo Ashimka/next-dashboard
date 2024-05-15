@@ -1,11 +1,17 @@
 import { jwtDecode } from "jwt-decode";
 import { IJWT } from "@/types/jwt";
 
-export const adminRolle = (token: string | null) => {
-  const allowedRoles = "ADMIN";
-  const decoded: IJWT | undefined = token ? jwtDecode(token) : undefined;
+type Props = {
+  accessToken: string | null;
+  allowedRoles: string[];
+};
+
+export const adminRolle = ({ accessToken, allowedRoles }: Props) => {
+  const decoded: IJWT | undefined = accessToken
+    ? jwtDecode(accessToken)
+    : undefined;
 
   const roles: string | undefined = decoded?.roles || undefined;
 
-  return roles === allowedRoles;
+  return roles && allowedRoles.includes(roles);
 };
