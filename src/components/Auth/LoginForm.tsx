@@ -36,6 +36,7 @@ const LoginForm = () => {
     }).unwrap();
 
     setLogin(data.phone);
+    router.push("/");
 
     resetField("phone");
     resetField("password");
@@ -43,7 +44,6 @@ const LoginForm = () => {
 
   React.useEffect(() => {
     if (isSuccess) {
-      router.push("/");
       dispatch(
         setUser({ userLogin: login, accessToken: loginData.accessToken })
       );

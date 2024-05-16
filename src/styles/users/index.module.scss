@@ -1,0 +1,59 @@
+.profile {
+  margin-top: 20px;
+  display: flex;
+
+  &__aside {
+    flex: 4;
+
+    .info {
+      padding: 20px;
+      background: rgb(141, 118, 255);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+
+      .photo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > img {
+          border-radius: 50%;
+        }
+      }
+      .name {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text);
+      }
+    }
+    .menu {
+      background: rgb(51, 58, 74);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 10px;
+      padding: 20px;
+
+      & > button {
+        text-align-last: left;
+      }
+
+      & > a,
+      button {
+        background: rgb(72, 82, 104);
+        padding: 10px;
+        color: var(--textSoft);
+
+        &:hover {
+          color: var(--text);
+        }
+      }
+    }
+  }
+
+  &__main {
+    flex: 8;
+  }
+}

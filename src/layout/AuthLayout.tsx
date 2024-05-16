@@ -27,7 +27,7 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
         dispatch(setUser(JSON.parse(user)));
       } else {
         if (!accessToken) {
-          router.push("/auth/login");
+          router.push("/");
         }
       }
     }
