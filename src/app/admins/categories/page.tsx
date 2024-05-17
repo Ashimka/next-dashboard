@@ -1,20 +1,23 @@
 "use client";
 import React, { useCallback } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
-import styles from "@/styles/category/index.module.scss";
 import Modal from "@/components/Modal/Modal";
-import { useRouter } from "next/navigation";
 import CatForm from "@/components/Categories/CatForm";
+import Dialog from "@/components/Dialog/Dialog";
+
 import {
   useAllCategoryQuery,
   useDeleteCategoryMutation,
 } from "@/features/slice/category/catSlice";
 import { touchEscape } from "@/hooks/useClickEscape";
+
 import { IResCat } from "@/types/inputs";
-import Dialog from "@/components/Dialog/Dialog";
-import { toast } from "react-toastify";
+import styles from "@/styles/category/index.module.scss";
 
 const CategoryPage = () => {
   const router = useRouter();

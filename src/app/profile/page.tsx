@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 import { logout } from "@/features/slice/apiSlice";
 import { useLogoutUserMutation } from "@/features/slice/auth/authApiSlice";
+import { useUserProfileQuery } from "@/features/slice/profile/profileSlice";
 
 import { useAppDispatch } from "@/hooks";
 
@@ -14,6 +15,7 @@ import styles from "@/styles/users/index.module.scss";
 
 const UserProfilepage = () => {
   const [logoutUser] = useLogoutUserMutation();
+  const { data: profile, isSuccess } = useUserProfileQuery();
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -37,16 +39,33 @@ const UserProfilepage = () => {
                   priority={true}
                 />
               </div>
-              <div className={styles.name}>Name user</div>
+              <div className={styles.name}>{profile && profile?.firstName}</div>
             </div>
             <div className={styles.menu}>
-              <Link href={"/users"}>Profile</Link>
-              <Link href={"/users/orders"}>Orders</Link>
-              <Link href={"/users/profile"}>Settings profile</Link>
-              <button onClick={handleLogout}>logout</button>
+              <Link href={"/profile"}>Профиль</Link>
+              <Link href={"/users/orders"}>Заказы</Link>
+              <Link href={"/users/profile"}>Настройки профиля</Link>
+              <button onClick={handleLogout}>Выход</button>
             </div>
           </aside>
-          <div className={styles.profile__main}></div>
+          <div className={styles.profile__main}>
+            {isSuccess && (
+              <div className={styles.user}>
+                <div className={styles.user__name}>{profile.firstName}</div>
+                <div className={styles.user__name}>{profile.lastName}</div>
+                <div className={styles.user__name}>{profile.address}</div>
+              </div>
+            )}
+
+            {!profile && (
+              <>
+                <p className={styles.profile__help}>
+                  Укажите Ваше имя и адрес доставки
+                </p>
+                <button className={styles.profile__btn}>Изменить</button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </>
