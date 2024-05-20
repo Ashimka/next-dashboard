@@ -24,7 +24,7 @@ const Header = () => {
     if (!user) {
       router.push("/auth/login");
     } else {
-      router.push("/profile");
+      router.push("/my/main");
     }
   };
 

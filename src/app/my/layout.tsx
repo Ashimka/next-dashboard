@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import AuthLayout from "@/layout/AuthLayout";
 
 export const metadata: Metadata = {
-  title: "Profile - SUSHI SHOP",
+  title: "Личный кабинет - SUSHI SHOP",
 };
 
 const Protectedlayout = ({

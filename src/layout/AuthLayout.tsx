@@ -10,6 +10,9 @@ import { adminRolle } from "@/hooks/useCheckAdminRole";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 
+import styles from "@/styles/users/index.module.scss";
+import Aside from "@/components/AuthAside/Aside";
+
 const allowedRoles = ["ADMIN", "USER"];
 
 const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
@@ -44,7 +47,14 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
     <>
       <div id="root">
         <Header />
-        <main className="main">{children}</main>
+        <main className="main">
+          <div className="container">
+            <div className={styles.profile}>
+              <Aside />
+              {children}
+            </div>
+          </div>
+        </main>
         <Footer />
       </div>
     </>

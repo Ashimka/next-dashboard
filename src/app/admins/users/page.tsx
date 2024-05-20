@@ -1,7 +1,7 @@
 "use client";
+import React from "react";
 
 import { useGetAllUsersQuery } from "@/features/users/usersApi";
-import React from "react";
 
 const UsersPage = () => {
   const { isSuccess, data: users } = useGetAllUsersQuery();

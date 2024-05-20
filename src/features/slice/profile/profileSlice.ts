@@ -6,11 +6,19 @@ export const profileApi = apiApp.injectEndpoints({
   endpoints: (builder) => ({
     userProfile: builder.query<IProfileUser, void>({
       query: () => ({
-        url: `/profile`,
+        url: `/my/main`,
       }),
       providesTags: ["Profile"],
+    }),
+    createProfile: builder.mutation({
+      query: (body: IProfileUser) => ({
+        url: "/my/settings",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
     }),
   }),
 });
 
-export const { useUserProfileQuery } = profileApi;
+export const { useUserProfileQuery, useCreateProfileMutation } = profileApi;
