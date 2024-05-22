@@ -4,9 +4,12 @@ import React from "react";
 
 import { useUserProfileQuery } from "@/features/slice/profile/profileSlice";
 
+import FormProfile from "@/components/FormProfile/FormProfile";
+
 import styles from "@/styles/users/index.module.scss";
 
 const Mainpage = () => {
+  const [openForm, setOpenForm] = React.useState(false);
   const { data: profile, isSuccess } = useUserProfileQuery();
 
   return (
@@ -20,14 +23,21 @@ const Mainpage = () => {
           </div>
         )}
 
-        {!profile && (
+        {!profile && !openForm && (
           <>
             <p className={styles.profile__help}>
               Укажите Ваше имя и адрес доставки
             </p>
-            <button className={styles.profile__btn}>Изменить</button>
+            <button
+              className={styles.profile__btn}
+              onClick={() => setOpenForm(true)}
+            >
+              Изменить
+            </button>
           </>
         )}
+
+        {openForm && <FormProfile setOpenForm={setOpenForm} />}
       </div>
     </>
   );
