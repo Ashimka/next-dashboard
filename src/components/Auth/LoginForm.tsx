@@ -36,7 +36,7 @@ const LoginForm = () => {
     }).unwrap();
 
     setLogin(data.phone);
-    router.push("/");
+    router.push("/my/main");
 
     resetField("phone");
     resetField("password");

@@ -1,6 +1,6 @@
 import { apiApp } from "@/store/apiApp";
 
-import { IProfileUser } from "@/types/profile";
+import { IProfileUpdate, IProfileUser } from "@/types/profile";
 
 export const profileApi = apiApp.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,8 +12,16 @@ export const profileApi = apiApp.injectEndpoints({
     }),
     createProfile: builder.mutation({
       query: (body: IProfileUser) => ({
-        url: "/my/settings",
+        url: "/my/main",
         method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Profile"],
+    }),
+    updateProfile: builder.mutation({
+      query: (body: IProfileUser) => ({
+        url: "/my/settings",
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["Profile"],
@@ -21,4 +29,8 @@ export const profileApi = apiApp.injectEndpoints({
   }),
 });
 
-export const { useUserProfileQuery, useCreateProfileMutation } = profileApi;
+export const {
+  useUserProfileQuery,
+  useCreateProfileMutation,
+  useUpdateProfileMutation,
+} = profileApi;

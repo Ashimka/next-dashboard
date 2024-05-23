@@ -7,6 +7,11 @@ const LastNameInput = ({
   data,
   errors,
 }: IProfileInputs) => {
+  React.useEffect(() => {
+    if (setValue && data?.lastName) {
+      setValue("lastName", data.lastName);
+    }
+  }, [data, setValue]);
   return (
     <>
       <label className="label" htmlFor="lastName">
