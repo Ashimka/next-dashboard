@@ -8,6 +8,11 @@
     justify-content: space-between;
     align-items: center;
 
+    &__logo {
+      padding: 5px;
+      cursor: pointer;
+    }
+
     &__user {
       display: flex;
       justify-self: center;

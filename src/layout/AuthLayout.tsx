@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { useRouter } from "next/navigation";
 
 import { selectAuth, setUser } from "@/features/slice/apiSlice";
@@ -12,6 +12,7 @@ import Footer from "@/components/Footer/Footer";
 
 import styles from "@/styles/users/index.module.scss";
 import Aside from "@/components/AuthAside/Aside";
+import Loading from "@/components/Loading";
 
 const allowedRoles = ["ADMIN", "USER"];
 
@@ -51,7 +52,7 @@ const AuthLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
           <div className="container">
             <div className={styles.profile}>
               <Aside />
-              {children}
+              <Suspense fallback={<Loading />}>{children}</Suspense>
             </div>
           </div>
         </main>

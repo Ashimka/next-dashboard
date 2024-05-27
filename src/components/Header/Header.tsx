@@ -34,7 +34,12 @@ const Header = () => {
         <div className="container">
           <div className={styles.header}>
             <div className="header__menu">menu</div>
-            <div className="header__logo">Sushi shop</div>
+            <div
+              className={styles.header__logo}
+              onClick={() => router.push("/")}
+            >
+              Sushi shop
+            </div>
             <div className={styles.header__user}>
               <div className={styles.basket}>
                 <span className={count > 0 ? styles.control : ""}>

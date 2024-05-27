@@ -19,27 +19,27 @@ const Mainpage = () => {
   return (
     <>
       <div className={styles.profile__main}>
-        {isSuccess && profile && (
+        {isSuccess && profile ? (
           <div className={styles.user}>
             <div className={styles.user__name}>{profile.firstName}</div>
             <div className={styles.user__name}>{profile.lastName}</div>
             <div className={styles.user__name}>{profile.address}</div>
             <div className={styles.user__name}>{userLogin}</div>
           </div>
-        )}
-
-        {!profile && !openForm && (
-          <>
-            <p className={styles.profile__help}>
-              Укажите Ваше имя и адрес доставки
-            </p>
-            <button
-              className={styles.profile__btn}
-              onClick={() => setOpenForm(true)}
-            >
-              Изменить
-            </button>
-          </>
+        ) : (
+          !openForm && (
+            <>
+              <p className={styles.profile__help}>
+                Укажите Ваше имя и адрес доставки
+              </p>
+              <button
+                className={styles.profile__btn}
+                onClick={() => setOpenForm(true)}
+              >
+                Изменить
+              </button>
+            </>
+          )
         )}
 
         {openForm && <FormProfile setOpenForm={setOpenForm} />}

@@ -3,10 +3,12 @@ import React from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 import Sidebar from "@/components/Sidebar/Sidebar";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+
 import { adminRolle } from "@/hooks/useCheckAdminRole";
 import { selectAuth, setUser } from "@/features/slice/apiSlice";
 
@@ -35,7 +37,7 @@ const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   React.useEffect(() => {
     if (accessToken && !isAdmin) {
       router.push("/");
-      console.log("Нет доступа");
+      toast.warning("Нет доступа к панели управления!");
     }
   }, [accessToken, isAdmin, router]);
 
