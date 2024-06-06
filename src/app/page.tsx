@@ -2,6 +2,7 @@
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
 import { useAllProductsMainQuery } from "@/features/slice/main/mainSlice";
+import { useAddProductToCartMutation } from "@/features/slice/cart/cartSlice";
 import { IProduct } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,6 +12,18 @@ import styles from "@/styles/main/index.module.scss";
 
 export default function Home() {
   const { isSuccess, data: products } = useAllProductsMainQuery();
+  const [addCart] = useAddProductToCartMutation();
+
+  const handleAddProductToCart = async (id: string | undefined) => {
+    try {
+      await addCart({
+        productId: id,
+        count: 1,
+      }).unwrap();
+    } catch (error) {
+      console.log("Error to cart", error);
+    }
+  };
   return (
     <>
       <div id="root">
@@ -48,7 +61,12 @@ export default function Home() {
                           <span className={styles.price}>
                             {`Цена: ${item.price}`} &#8381;
                           </span>
-                          <button className={styles.btn_add}>Добавить</button>
+                          <button
+                            className={styles.btn_add}
+                            onClick={() => handleAddProductToCart(item.id)}
+                          >
+                            Добавить
+                          </button>
                         </div>
                       </div>
                     </div>

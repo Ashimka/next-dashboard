@@ -41,7 +41,10 @@ const Header = () => {
               Sushi shop
             </div>
             <div className={styles.header__user}>
-              <div className={styles.basket}>
+              <div
+                className={styles.basket}
+                onClick={() => router.push("/my/cart")}
+              >
                 <span className={count > 0 ? styles.control : ""}>
                   {count > 0 && count}
                 </span>
