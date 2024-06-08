@@ -55,9 +55,11 @@ const Header = () => {
                 className={styles.basket}
                 onClick={() => router.push("/my/cart")}
               >
-                <span className={count > 0 ? styles.control : ""}>
-                  {count > 0 && count}
-                </span>
+                {user && (
+                  <span className={count > 0 ? styles.control : ""}>
+                    {count > 0 && count}
+                  </span>
+                )}
                 <PiShoppingBagOpen />
                 <span>Корзина</span>
               </div>

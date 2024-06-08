@@ -10,6 +10,7 @@ export const authApi = apiApp.injectEndpoints({
         body,
         credentials: "include",
       }),
+      invalidatesTags: ["Cart", "Profile"],
     }),
     logoutUser: builder.mutation({
       query: () => ({
@@ -17,6 +18,7 @@ export const authApi = apiApp.injectEndpoints({
         method: "POST",
         credentials: "include",
       }),
+      invalidatesTags: ["Cart", "Profile"],
     }),
   }),
 });
