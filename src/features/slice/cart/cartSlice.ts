@@ -11,7 +11,14 @@ export const cartApi = apiApp.injectEndpoints({
       }),
       invalidatesTags: ["Cart"],
     }),
+    allProductsInCart: builder.query<ICart[], void>({
+      query: () => ({
+        url: "/cart",
+      }),
+      providesTags: ["Cart"],
+    }),
   }),
 });
 
-export const { useAddProductToCartMutation } = cartApi;
+export const { useAddProductToCartMutation, useAllProductsInCartQuery } =
+  cartApi;

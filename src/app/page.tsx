@@ -1,12 +1,16 @@
 "use client";
-import Footer from "@/components/Footer/Footer";
-import Header from "@/components/Header/Header";
+
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+
 import { useAllProductsMainQuery } from "@/features/slice/main/mainSlice";
 import { useAddProductToCartMutation } from "@/features/slice/cart/cartSlice";
+
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
+
 import { IProduct } from "@/types/product";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
 
 import styles from "@/styles/main/index.module.scss";
 
@@ -24,6 +28,7 @@ export default function Home() {
       console.log("Error to cart", error);
     }
   };
+
   return (
     <>
       <div id="root">

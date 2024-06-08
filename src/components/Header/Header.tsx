@@ -3,15 +3,25 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 
+import { useAllProductsInCartQuery } from "@/features/slice/cart/cartSlice";
+
 import { PiShoppingBagOpen } from "react-icons/pi";
 import { PiUser } from "react-icons/pi";
 
+import { ICart } from "@/types/cart";
 import styles from "@/styles/header/index.module.scss";
 
 const Header = () => {
   const [user, setUser] = React.useState<string | null>(null);
+  const { data: cart } = useAllProductsInCartQuery();
   const router = useRouter();
   let count = 0;
+
+  if (cart) {
+    count = cart?.reduce((acc: number, val: ICart) => {
+      return acc + val.count;
+    }, 0);
+  }
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
