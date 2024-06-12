@@ -5,7 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { useAllProductsMainQuery } from "@/features/slice/main/mainSlice";
-import { useAddProductToCartMutation } from "@/features/slice/cart/cartSlice";
+import {
+  useAddProductToCartMutation,
+  useAllProductsInCartQuery,
+} from "@/features/slice/cart/cartSlice";
 
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -17,18 +20,20 @@ import styles from "@/styles/main/index.module.scss";
 export default function Home() {
   const { isSuccess, data: products } = useAllProductsMainQuery();
   const [addCart] = useAddProductToCartMutation();
+  const { data: cart } = useAllProductsInCartQuery();
 
   const handleAddProductToCart = async (id: string | undefined) => {
     try {
-      await addCart({
-        productId: id,
-        count: 1,
-      }).unwrap();
+      if (cart?.some((item) => item.productId !== id)) {
+        await addCart({
+          productId: id,
+          count: 1,
+        }).unwrap();
+      }
     } catch (error) {
       console.log("Error to cart", error);
     }
   };
-
   return (
     <>
       <div id="root">
@@ -69,8 +74,13 @@ export default function Home() {
                           <button
                             className={styles.btn_add}
                             onClick={() => handleAddProductToCart(item.id)}
+                            disabled={cart?.some(
+                              (val) => val.productId === item.id
+                            )}
                           >
-                            Добавить
+                            {cart?.some((val) => val.productId === item.id)
+                              ? "В КОРЗИНЕ"
+                              : "Добавить"}
                           </button>
                         </div>
                       </div>
