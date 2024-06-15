@@ -1,5 +1,5 @@
 import { apiApp } from "@/store/apiApp";
-import { ICart } from "@/types/cart";
+import { ICart, IUpdateCart } from "@/types/cart";
 
 export const cartApi = apiApp.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,8 +17,19 @@ export const cartApi = apiApp.injectEndpoints({
       }),
       providesTags: ["Cart"],
     }),
+    updateProductsInCart: builder.mutation({
+      query: (body: IUpdateCart) => ({
+        url: "/my/cart",
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["Cart"],
+    }),
   }),
 });
 
-export const { useAddProductToCartMutation, useAllProductsInCartQuery } =
-  cartApi;
+export const {
+  useAddProductToCartMutation,
+  useAllProductsInCartQuery,
+  useUpdateProductsInCartMutation,
+} = cartApi;

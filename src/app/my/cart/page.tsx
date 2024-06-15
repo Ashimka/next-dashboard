@@ -2,11 +2,32 @@
 import React from "react";
 
 import styles from "@/styles/cart/index.module.scss";
-import { useAllProductsInCartQuery } from "@/features/slice/cart/cartSlice";
+import {
+  useAllProductsInCartQuery,
+  useUpdateProductsInCartMutation,
+} from "@/features/slice/cart/cartSlice";
 import Image from "next/image";
+import { IUpdateCart } from "@/types/cart";
 
 const Cartpage = () => {
   const { data: cart } = useAllProductsInCartQuery();
+  const [updateCount] = useUpdateProductsInCartMutation();
+
+  const clickToUpdateCountPlus = (data: IUpdateCart) => {
+    updateCount({
+      productId: data.productId,
+      id: data.id,
+      options: "plus",
+    });
+  };
+
+  const clickToUpdateCountMinus = (data: IUpdateCart) => {
+    updateCount({
+      productId: data.productId,
+      id: data.id,
+      options: "minus",
+    });
+  };
 
   return (
     <>
@@ -42,9 +63,19 @@ const Cartpage = () => {
                 </div>
                 <div className={styles.grid__options}>
                   <div className={styles.quantity}>
-                    <button className={styles.btn_minus}>-</button>
+                    <button
+                      className={styles.btn_minus}
+                      onClick={() => clickToUpdateCountMinus(product)}
+                    >
+                      -
+                    </button>
                     <span className={styles.count}>{product.count}</span>
-                    <button className={styles.btn_plus}>+</button>
+                    <button
+                      className={styles.btn_plus}
+                      onClick={() => clickToUpdateCountPlus(product)}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
               </div>

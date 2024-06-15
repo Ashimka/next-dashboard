@@ -7,3 +7,9 @@ export interface ICart {
   userId?: string;
   productId?: string;
 }
+
+export interface IUpdateCart {
+  id?: number;
+  productId?: string;
+  options?: string;
+}
