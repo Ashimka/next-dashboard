@@ -5,7 +5,7 @@ export const cartApi = apiApp.injectEndpoints({
   endpoints: (builder) => ({
     addProductToCart: builder.mutation({
       query: (body: ICart) => ({
-        url: "/cart",
+        url: "/my/cart",
         method: "POST",
         body,
       }),
@@ -13,7 +13,7 @@ export const cartApi = apiApp.injectEndpoints({
     }),
     allProductsInCart: builder.query<ICart[], void>({
       query: () => ({
-        url: "/cart",
+        url: "/my/cart",
       }),
       providesTags: ["Cart"],
     }),

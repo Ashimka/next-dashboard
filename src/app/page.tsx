@@ -24,7 +24,7 @@ export default function Home() {
 
   const handleAddProductToCart = async (id: string | undefined) => {
     try {
-      if (cart?.some((item) => item.productId !== id)) {
+      if (cart?.length === 0 || cart?.some((item) => item.productId !== id)) {
         await addCart({
           productId: id,
           count: 1,
