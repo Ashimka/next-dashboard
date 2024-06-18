@@ -12,6 +12,8 @@ import { IUpdateCart } from "@/types/cart";
 const Cartpage = () => {
   const { data: cart } = useAllProductsInCartQuery();
   const [updateCount] = useUpdateProductsInCartMutation();
+  const [value, setValue] = React.useState("");
+  const [valueDelivery, setValueDelivery] = React.useState("");
 
   const clickToUpdateCountPlus = (data: IUpdateCart) => {
     updateCount({
@@ -27,6 +29,13 @@ const Cartpage = () => {
       id: data.id,
       options: "minus",
     });
+  };
+
+  const changeValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+  const changeValueDelivery = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValueDelivery(event.target.value);
   };
 
   return (
@@ -48,7 +57,12 @@ const Cartpage = () => {
                       alt={product.product?.name || "Нет фото"}
                       width={150}
                       height={120}
-                      priority={true}
+                      placeholder="blur"
+                      blurDataURL={
+                        product.product?.image
+                          ? `${process.env.NEXT_PUBLIC_SERVER_IMAGE_URL}/${product.product?.image}`
+                          : "/noimage.png"
+                      }
                     />
                   </div>
                   <div className={styles.cart_desc}>
@@ -58,7 +72,7 @@ const Cartpage = () => {
                     </div>
                   </div>
                   <div className={styles.cart_price}>
-                    {product.product?.price} ₽
+                    {product && product.product?.price * product.count} ₽
                   </div>
                 </div>
                 <div className={styles.grid__options}>
@@ -81,6 +95,104 @@ const Cartpage = () => {
               </div>
             ))}
         </div>
+        <div className={styles.cart__total}>
+          К оплате:{" "}
+          <span>
+            {cart?.reduce((acc, val) => {
+              return acc + val.count * val.product.price;
+            }, 0)}{" "}
+            ₽
+          </span>
+        </div>
+        <form className={styles.checkout}>
+          <div className={styles.summary}>
+            <div className={styles.summary_title}>Выберите способ оплаты</div>
+            <label htmlFor="cash">
+              <input
+                className={styles.summary_input}
+                type="radio"
+                name="summary"
+                id="cash"
+                value="cash"
+                onChange={changeValue}
+              />
+              <span
+                className={
+                  value === "cash" ? styles.selected : styles.radio_span
+                }
+              >
+                Наличными
+              </span>
+            </label>
+            <label htmlFor="card">
+              <input
+                className={styles.summary_input}
+                type="radio"
+                name="summary"
+                id="card"
+                value="card"
+                onChange={changeValue}
+                required
+              />
+              <span
+                className={
+                  value === "card" ? styles.selected : styles.radio_span
+                }
+              >
+                Картой(онлайн перевод)
+              </span>
+            </label>
+          </div>
+          <div className={styles.summary}>
+            <div className={styles.summary_title}>Выберите способ доставки</div>
+            <label htmlFor="pickup">
+              <input
+                className={styles.summary_input}
+                type="radio"
+                name="delivery"
+                id="pickup"
+                value="pickup"
+                onChange={changeValueDelivery}
+              />
+              <span
+                className={
+                  valueDelivery === "pickup"
+                    ? styles.selected
+                    : styles.radio_span
+                }
+              >
+                Самовывоз
+              </span>
+            </label>
+            <label htmlFor="address">
+              <input
+                className={styles.summary_input}
+                type="radio"
+                name="delivery"
+                id="address"
+                value="address"
+                onChange={changeValueDelivery}
+                required
+              />
+              <span
+                className={
+                  valueDelivery === "address"
+                    ? styles.selected
+                    : styles.radio_span
+                }
+              >
+                На адрес
+              </span>
+            </label>
+          </div>
+          <textarea
+            className={styles.checkout_text}
+            name="comments"
+            id="comments"
+            placeholder="Комментарии к заказу"
+          ></textarea>
+          <button className={styles.checkout_btn}>Оформить</button>
+        </form>
       </div>
     </>
   );
